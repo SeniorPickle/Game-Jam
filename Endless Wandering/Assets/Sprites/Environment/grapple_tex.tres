@@ -1,0 +1,14 @@
+[gd_resource type="AnimatedTexture" load_steps=4 format=3 uid="uid://4gbunyhwqf3t"]
+
+[ext_resource type="Texture2D" uid="uid://b1wnoarkikmsu" path="res://Assets/Sprites/Environment/grapple_1.png" id="1_gcjaq"]
+[ext_resource type="Texture2D" uid="uid://cid4odoqgm7bo" path="res://Assets/Sprites/Environment/grapple_2.png" id="2_jd2gq"]
+[ext_resource type="Texture2D" uid="uid://e3upwykm67s" path="res://Assets/Sprites/Environment/grapple_3.png" id="3_58kjq"]
+
+[resource]
+frames = 3
+frame_0/texture = ExtResource("1_gcjaq")
+frame_0/duration = 0.5
+frame_1/texture = ExtResource("2_jd2gq")
+frame_1/duration = 0.5
+frame_2/texture = ExtResource("3_58kjq")
+frame_2/duration = 0.5
