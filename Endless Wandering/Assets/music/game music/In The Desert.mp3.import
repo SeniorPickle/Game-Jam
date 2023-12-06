@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dgb3t5bx7fnf7"
+path="res://.godot/imported/In The Desert.mp3-5273014c3d7ad1b14304e55065ab9238.mp3str"
+
+[deps]
+
+source_file="res://Assets/music/game music/In The Desert.mp3"
+dest_files=["res://.godot/imported/In The Desert.mp3-5273014c3d7ad1b14304e55065ab9238.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

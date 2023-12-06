@@ -1,0 +1,212 @@
+[gd_scene load_steps=7 format=3 uid="uid://bufnumboes7h3"]
+
+[ext_resource type="Script" path="res://loaders/pause_menu.gd" id="1_0x8n6"]
+[ext_resource type="Script" path="res://Volume.gd" id="2_80uda"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5yul3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hhrqm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kgxxm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7xoim"]
+
+[node name="PauseMenu" type="Node2D"]
+script = ExtResource("1_0x8n6")
+
+[node name="layer_main" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="layer_main"]
+offset_left = -17.0
+offset_top = -7.0
+offset_right = 489.0
+offset_bottom = 669.0
+color = Color(0.380392, 0.380392, 0.380392, 0.333333)
+
+[node name="MarginContainer" type="MarginContainer" parent="layer_main"]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1103.0
+offset_top = 213.0
+offset_right = -705.0
+offset_bottom = -225.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="layer_main/MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="layer_main/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Paused[/center]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="unpause" type="Button" parent="layer_main/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Unpause"
+
+[node name="options" type="Button" parent="layer_main/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="exmenu" type="Button" parent="layer_main/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit To Menu"
+
+[node name="exgm" type="Button" parent="layer_main/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit Game"
+
+[node name="Options" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Options"]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Options"]
+offset_left = 480.0
+offset_top = 36.0
+offset_right = 680.0
+offset_bottom = 294.0
+size_flags_horizontal = 4
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Options/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Options/MarginContainer/VBoxContainer3"]
+layout_mode = 2
+
+[node name="Options" type="RichTextLabel" parent="Options/MarginContainer/VBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "[center]Options[/center]
+"
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Options/MarginContainer/VBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Graphics" type="Button" parent="Options/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5yul3")
+text = "Graphics"
+flat = true
+
+[node name="Sound" type="Button" parent="Options/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hhrqm")
+text = "Sound
+"
+flat = true
+
+[node name="Other" type="Button" parent="Options/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kgxxm")
+text = "Other
+"
+flat = true
+
+[node name="SoundSettings" type="VBoxContainer" parent="Options/MarginContainer/VBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Sound" type="RichTextLabel" parent="Options/MarginContainer/VBoxContainer3/SoundSettings"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "[center]Sound Settings[/center]
+"
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Options/MarginContainer/VBoxContainer3/SoundSettings"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Options/MarginContainer/VBoxContainer3/SoundSettings/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="mas" type="RichTextLabel" parent="Options/MarginContainer/VBoxContainer3/SoundSettings/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 10
+text = "Master:
+"
+fit_content = true
+
+[node name="mus" type="RichTextLabel" parent="Options/MarginContainer/VBoxContainer3/SoundSettings/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 10
+text = "Music:
+"
+fit_content = true
+
+[node name="Sound4" type="RichTextLabel" parent="Options/MarginContainer/VBoxContainer3/SoundSettings/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 10
+text = "Game:
+"
+fit_content = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Options/MarginContainer/VBoxContainer3/SoundSettings/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MasterVolume" type="HSlider" parent="Options/MarginContainer/VBoxContainer3/SoundSettings/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+value = 1.0
+script = ExtResource("2_80uda")
+bus_name = "Master"
+
+[node name="MusicVolume" type="HSlider" parent="Options/MarginContainer/VBoxContainer3/SoundSettings/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+value = 1.0
+script = ExtResource("2_80uda")
+bus_name = "Music"
+
+[node name="gmv" type="HSlider" parent="Options/MarginContainer/VBoxContainer3/SoundSettings/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+tooltip_text = "Volume
+"
+max_value = 1.0
+step = 0.001
+value = 1.0
+script = ExtResource("2_80uda")
+bus_name = "sfx"
+
+[node name="back_opt" type="Button" parent="Options/MarginContainer/VBoxContainer3/SoundSettings"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7xoim")
+text = "Back"
+flat = true
+
+[node name="GraphicSettings" type="VBoxContainer" parent="Options/MarginContainer/VBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Other" type="VBoxContainer" parent="Options/MarginContainer/VBoxContainer3"]
+layout_mode = 2
+
+[connection signal="pressed" from="layer_main/MarginContainer/VBoxContainer/unpause" to="." method="_on_unpause_pressed"]
+[connection signal="pressed" from="layer_main/MarginContainer/VBoxContainer/options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="layer_main/MarginContainer/VBoxContainer/exmenu" to="." method="_on_exmenu_pressed"]
+[connection signal="pressed" from="layer_main/MarginContainer/VBoxContainer/exgm" to="." method="_on_exgm_pressed"]
+[connection signal="pressed" from="Options/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer/Graphics" to="." method="_on_graphics_pressed"]
+[connection signal="pressed" from="Options/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer/Sound" to="." method="_on_sound_pressed"]
+[connection signal="pressed" from="Options/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer/Other" to="." method="_on_other_pressed"]
+[connection signal="pressed" from="Options/MarginContainer/VBoxContainer3/SoundSettings/back_opt" to="." method="_on_back_opt_pressed"]
