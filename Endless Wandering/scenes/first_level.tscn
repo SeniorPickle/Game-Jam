@@ -120,28 +120,18 @@ terrain_set_0/terrain_2/name = "Terrain 2"
 terrain_set_0/terrain_2/color = Color(0.46875, 0.5, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_solla")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4h2r3"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0j0t0"]
 texture = ExtResource("5_khms8")
 texture_region_size = Vector2i(32, 32)
-0:0/animation_columns = 3
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-1:0/0 = 0
-1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:0/0/physics_layer_0/angular_velocity = 0.0
-0:1/0 = 0
-0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:1/0/physics_layer_0/angular_velocity = 0.0
-1:1/0 = 0
-1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:1/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -0.5, -11.375, 8, -8, 10.25, -0.25, 8, 8, -0.125, 10.375, -8, 8, -11.125, -0.75)
 
 [sub_resource type="TileSet" id="TileSet_tudu3"]
 physics_layer_0/collision_layer = 8
 physics_layer_0/collision_mask = 8
-sources/7 = SubResource("TileSetAtlasSource_4h2r3")
+sources/9 = SubResource("TileSetAtlasSource_0j0t0")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_x830j"]
 streams_count = 3
@@ -181,10 +171,11 @@ layer_0/tile_data = PackedInt32Array(327721, 0, 0, 65586, 0, 0, 327738, 65536, 0
 [node name="grappling" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_tudu3")
 format = 2
-layer_0/tile_data = PackedInt32Array(327815, 7, 0)
+layer_0/tile_data = PackedInt32Array(196736, 9, 0, 196750, 9, 0)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_x830j")
+max_distance = 1e+15
 bus = &"Music"
 
 [node name="Death Boxes" type="Node" parent="."]

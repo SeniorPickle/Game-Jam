@@ -133,6 +133,7 @@ flat = true
 
 [node name="SoundSettings" type="VBoxContainer" parent="Options/MarginContainer/VBoxContainer3"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="Sound" type="RichTextLabel" parent="Options/MarginContainer/VBoxContainer3/SoundSettings"]
@@ -212,7 +213,60 @@ unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Other" type="VBoxContainer" parent="Options/MarginContainer/VBoxContainer3"]
+visible = false
 layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Options/MarginContainer/VBoxContainer3/Other"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Keybinds[/center]
+"
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Options/MarginContainer/VBoxContainer3/Other"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Jump:
+"
+fit_content = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Left:"
+fit_content = true
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Right:"
+fit_content = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "space"
+flat = true
+
+[node name="Button2" type="Button" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "A"
+flat = true
+
+[node name="Button3" type="Button" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "D"
+flat = true
 
 [node name="Achievments" type="CanvasLayer" parent="."]
 visible = false

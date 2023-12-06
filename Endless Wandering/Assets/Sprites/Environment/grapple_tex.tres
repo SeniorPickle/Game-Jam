@@ -5,10 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://e3upwykm67s" path="res://Assets/Sprites/Environment/grapple_3.png" id="3_58kjq"]
 
 [resource]
+resource_local_to_scene = true
 frames = 3
+speed_scale = 2.0
 frame_0/texture = ExtResource("1_gcjaq")
-frame_0/duration = 0.5
 frame_1/texture = ExtResource("2_jd2gq")
-frame_1/duration = 0.5
+frame_1/duration = 1.0
 frame_2/texture = ExtResource("3_58kjq")
-frame_2/duration = 0.5
+frame_2/duration = 1.0

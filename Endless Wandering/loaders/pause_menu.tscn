@@ -189,18 +189,71 @@ value = 1.0
 script = ExtResource("2_80uda")
 bus_name = "sfx"
 
-[node name="back_opt" type="Button" parent="Options/MarginContainer/VBoxContainer3/SoundSettings"]
-layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_7xoim")
-text = "Back"
-flat = true
-
 [node name="GraphicSettings" type="VBoxContainer" parent="Options/MarginContainer/VBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Other" type="VBoxContainer" parent="Options/MarginContainer/VBoxContainer3"]
+visible = false
 layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Options/MarginContainer/VBoxContainer3/Other"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Keybinds[/center]
+"
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Options/MarginContainer/VBoxContainer3/Other"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Jump:
+"
+fit_content = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Left:"
+fit_content = true
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Right:"
+fit_content = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "space"
+flat = true
+
+[node name="Button2" type="Button" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "A"
+flat = true
+
+[node name="Button3" type="Button" parent="Options/MarginContainer/VBoxContainer3/Other/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "D"
+flat = true
+
+[node name="back_opt" type="Button" parent="Options/MarginContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7xoim")
+text = "Back"
+flat = true
 
 [connection signal="pressed" from="layer_main/MarginContainer/VBoxContainer/unpause" to="." method="_on_unpause_pressed"]
 [connection signal="pressed" from="layer_main/MarginContainer/VBoxContainer/options" to="." method="_on_options_pressed"]
@@ -209,4 +262,4 @@ layout_mode = 2
 [connection signal="pressed" from="Options/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer/Graphics" to="." method="_on_graphics_pressed"]
 [connection signal="pressed" from="Options/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer/Sound" to="." method="_on_sound_pressed"]
 [connection signal="pressed" from="Options/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer/Other" to="." method="_on_other_pressed"]
-[connection signal="pressed" from="Options/MarginContainer/VBoxContainer3/SoundSettings/back_opt" to="." method="_on_back_opt_pressed"]
+[connection signal="pressed" from="Options/MarginContainer/VBoxContainer3/back_opt" to="." method="_on_back_opt_pressed"]
