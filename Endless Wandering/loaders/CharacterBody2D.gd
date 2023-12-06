@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var JUMP_VELOCITY: int
 @export var gravity: int
 @export var MAX_FALL_SPEED: int
-	
+@export var paused: bool = false
 func _ready():
 	pass
 
@@ -32,19 +32,20 @@ func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
 	var direction = Input.get_action_strength("right") - Input.get_action_strength("left")
+	
+	if not paused:
+		if direction:
+			velocity.x = direction * SPEED
+			if is_on_floor():
+				$AnimatedSprite2D.play('default')
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			if is_on_floor():
+				$AnimatedSprite2D.animation = 'default'
+				$AnimatedSprite2D.frame = 0
+				$AnimatedSprite2D.pause()
 
-	if direction:
-		velocity.x = direction * SPEED
-		if is_on_floor():
-			$AnimatedSprite2D.play('default')
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		if is_on_floor():
-			$AnimatedSprite2D.animation = 'default'
-			$AnimatedSprite2D.frame = 0
-			$AnimatedSprite2D.pause()
-
-	# Update the character's position based on velocity.
+		# Update the character's position based on velocity.
 	move_and_slide()
 
 func _on_death_colider_body_entered(body):
@@ -55,9 +56,12 @@ func _on_death_colider_body_entered(body):
 
 
 func _on_tree_entered():
+	
 	if get_tree() != null and get_tree().current_scene != null:
 		var current_scene_name = get_tree().current_scene.name
 		print("Current Scene: ", current_scene_name)
+		if current_scene_name != "MainMenu":
+			paused = true
 		if current_scene_name == "first_level":
 			position.y = 50
 			position.x = 150

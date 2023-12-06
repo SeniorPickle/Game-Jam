@@ -14,15 +14,17 @@ config/name="Endless Wandering"
 run/main_scene="res://scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/show_image=false
-config/icon="res://icon.svg"
+config/icon="res://Assets/Sprites/game images/icon.png"
 
 [autoload]
 
 CharacterLoader="*res://loaders/character_loader.tscn"
 PauseMenu="*res://loaders/pause_menu.tscn"
+LoadScreen="*res://load_screen.tscn"
 
 [display]
 
+window/size/mode=2
 window/stretch/mode="viewport"
 
 [input]

@@ -17,6 +17,7 @@ func _on_button_pressed():
 	
 func _on_start_game_pressed():
 	PauseMenu.pausible = true
+	LoadScreen.begin = true
 	get_tree().change_scene_to_file('res://scenes/first_level.tscn')
 	
 func _on_button_2_pressed():
