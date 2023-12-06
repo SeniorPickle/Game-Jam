@@ -124,7 +124,7 @@ default_color = Color(0, 0, 1, 1)
 visible = false
 top_level = true
 scale = Vector2(0.2, 0.2)
-collision_layer = 0
+collision_layer = 8
 collision_mask = 8
 
 [node name="ColorRect" type="ColorRect" parent="Player/Hook"]

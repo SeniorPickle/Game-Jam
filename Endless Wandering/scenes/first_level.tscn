@@ -87,8 +87,8 @@ texture_region_size = Vector2i(64, 64)
 [sub_resource type="TileSet" id="TileSet_eqpr1"]
 physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 2
-physics_layer_1/collision_layer = 9
-physics_layer_1/collision_mask = 9
+physics_layer_1/collision_layer = 5
+physics_layer_1/collision_mask = 5
 sources/3 = SubResource("TileSetAtlasSource_eoblc")
 sources/7 = SubResource("TileSetAtlasSource_dpr8b")
 
@@ -109,8 +109,8 @@ texture_region_size = Vector2i(64, 64)
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-15.5, -6.0625, 15.75, -6.0625, 17.375, -4.3125, 15, -0.3125, 11.625, 3.4375, 8, 4.9375, 5, 5.9375, -5.125, 6.0625, -8, 4.5625, -11.375, 3.8125, -14.875, 2.0625, -18, -0.8125, -17.75, -4.0625)
 
 [sub_resource type="TileSet" id="TileSet_15t5m"]
-physics_layer_0/collision_layer = 5
-physics_layer_0/collision_mask = 5
+physics_layer_0/collision_layer = 9
+physics_layer_0/collision_mask = 9
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "sand 0"
 terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 0.25098, 1)
@@ -153,7 +153,7 @@ layer_0/tile_data = PackedInt32Array(393242, 3, 3, 458778, 65539, 3, 524314, 3, 
 [node name="platforms" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_15t5m")
 format = 2
-layer_0/tile_data = PackedInt32Array(327721, 0, 0, 65586, 0, 0, 327738, 65536, 0, 589899, 0, 0, 327764, 65536, 0, 327747, 65536, 0)
+layer_0/tile_data = PackedInt32Array(327721, 0, 0, 65586, 0, 0, 327738, 65536, 0, 589899, 0, 0, 327747, 65536, 0, 720979, 0, 0)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_x830j")

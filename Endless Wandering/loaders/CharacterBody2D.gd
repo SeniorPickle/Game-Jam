@@ -72,11 +72,12 @@ func _physics_process(delta):
 			# Calculate swing trajectory
 			velocity.y += gravity * delta
 			var hook_to_player = global_position - hook.global_position
+
 			var perpendicular = Vector2(-hook_to_player.y, hook_to_player.x).normalized()
 			
 			var input_direction = Input.get_action_strength("right") - Input.get_action_strength("left")
 			var target_swing_direction: Vector2
-			
+
 			if input_direction > 0:
 				target_swing_direction = perpendicular
 			else:
@@ -86,13 +87,13 @@ func _physics_process(delta):
 			var dot_product = current_swing_direction.dot(target_swing_direction)
 			
 			var swing_influence = Input.get_action_strength("left") - Input.get_action_strength("right")
-			var swing_influence_factor = 0.1 + 0.5 * (1.0 - dot_product)  # Adjust as needed 
+			var swing_influence_factor = 0.1 + 0.5 * (1.0 - dot_product) * 0.5 # Adjust as needed 
 			
 			velocity += perpendicular * (PLAYER_HOOK_SPEED * swing_influence * swing_influence_factor)
-			var air_resistance = 0.95  # Adjust as needed
+			var air_resistance = 0.9  # Adjust as needed
 			velocity *= air_resistance
 			
-			var max_velocity = 1000.0  # Adjust as needed
+			var max_velocity = 500.0  # Adjust as needed
 			velocity = velocity.limit_length(max_velocity)
 			
 			velocity.x += swing_influence * swing_influence_factor
