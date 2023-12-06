@@ -11,7 +11,7 @@ enum HookStates {NONE, EXTEND, RETRACT_TO_PLAYER}
 @export var paused: bool = false
 const HOOK_MAX_LENGTH := 200.0
 const HOOK_SPEED := 800.0
-const PLAYER_HOOK_SPEED := 600.0
+const PLAYER_HOOK_SPEED := 300.0
 const ACCELERATION := 1_500.0
 
 var hook_direction: Vector2
@@ -45,7 +45,7 @@ func _physics_process(delta):
 				velocity.y = JUMP_VELOCITY  # Use a negative value for upward velocity.
 				velocity.y = min(velocity.y, MAX_FALL_SPEED)
 				player_state = PlayerStates.DEFAULT
-				hook_state = HookStates.RETRACT_TO_PLAYER
+
 			if Input.is_action_just_pressed("left"):
 				$AnimatedSprite2D.flip_h = true
 			if Input.is_action_just_pressed("right"):
@@ -73,14 +73,25 @@ func _physics_process(delta):
 			velocity.y += gravity * delta
 			var hook_to_player = global_position - hook.global_position
 			var perpendicular = Vector2(-hook_to_player.y, hook_to_player.x).normalized()
-			var swing_influence = Input.get_action_strength("right") - Input.get_action_strength("left")
-			var swing_influence_factor = 0.1  # Adjust as needed
+			
+			var input_direction = Input.get_action_strength("right") - Input.get_action_strength("left")
+			var target_swing_direction: Vector2
+			
+			if input_direction > 0:
+				target_swing_direction = perpendicular
+			else:
+				target_swing_direction = -perpendicular
+			
+			var current_swing_direction = velocity.normalized()
+			var dot_product = current_swing_direction.dot(target_swing_direction)
+			
+			var swing_influence = Input.get_action_strength("left") - Input.get_action_strength("right")
+			var swing_influence_factor = 0.1 + 0.5 * (1.0 - dot_product)  # Adjust as needed 
+			
 			velocity += perpendicular * (PLAYER_HOOK_SPEED * swing_influence * swing_influence_factor)
 			var air_resistance = 0.95  # Adjust as needed
 			velocity *= air_resistance
-			var player_above_hook = dot(hook_to_player.normalized(), Vector2(0, -1)) > 0
-			if player_above_hook:
-				perpendicular = -perpendicular
+			
 			var max_velocity = 1000.0  # Adjust as needed
 			velocity = velocity.limit_length(max_velocity)
 			
@@ -94,6 +105,10 @@ func _physics_process(delta):
 				global_position = hook.global_position
 				player_state = PlayerStates.DEFAULT
 				hide_hook()
+			elif global_position.distance_to(hook.global_position) > HOOK_MAX_LENGTH:
+				# Player missed the hook, retract it
+				player_state = PlayerStates.DEFAULT
+				hook_state = HookStates.RETRACT_TO_PLAYER
 		
 	match hook_state:
 		HookStates.EXTEND:
@@ -138,7 +153,7 @@ func _on_death_colider_body_entered(body):
 	position.x = 50
 	position.y = 150
 	hide_hook()
-	hook_state = HookStates.RETRACT_TO_PLAYER
+
 	$Camera2D.reset_smoothing()
 
 
