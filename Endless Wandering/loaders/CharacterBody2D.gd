@@ -1,14 +1,16 @@
 extends CharacterBody2D
 
-enum PlayerStates {DEFAULT, HOOKED}
-enum HookStates {NONE, EXTEND, RETRACT_TO_PLAYER}
+enum PlayerStates {DEFAULT, HOOKED, SWUNG}
+enum HookStates {NONE, EXTEND, RETRACT_TO_PLAYER, HOOKED}
 
 var LEVEL = 0
+
 @export var SPEED: int
 @export var JUMP_VELOCITY: int
 @export var gravity: int
 @export var MAX_FALL_SPEED: int
 @export var paused: bool = false
+@export var HOOK_LENGTH: int = 0 
 const HOOK_MAX_LENGTH := 200.0
 const HOOK_SPEED := 800.0
 const PLAYER_HOOK_SPEED := 300.0
@@ -27,119 +29,149 @@ func _ready():
 	pass
 
 func _physics_process(delta):
+	print(player_state, hook_state)
+	
+	
 	match player_state:
 		PlayerStates.DEFAULT:
-			if not is_on_floor():
-				velocity.y += gravity * delta
-				$AnimatedSprite2D.play('new_animation')
-				$ground_poly.disabled = true
-				$air_poly.disabled = false
-			else:
-				$Camera2D.position_smoothing_speed = 5
-				$ground_poly.disabled = false
-				$air_poly.disabled = true
-				velocity.y = 0  # Reset vertical velocity when on the floor.
-			# Handle jump.
-			if Input.is_action_just_pressed("jump") and is_on_floor():
-				velocity.y = JUMP_VELOCITY  # Use a negative value for upward velocity.
-				velocity.y = min(velocity.y, MAX_FALL_SPEED)
-				player_state = PlayerStates.DEFAULT
-
-			if Input.is_action_just_pressed("left"):
-				$AnimatedSprite2D.flip_h = true
-			if Input.is_action_just_pressed("right"):
-				$AnimatedSprite2D.flip_h = false
-
-			# Get the input direction and handle the movement/deceleration.
-			var direction = Input.get_action_strength("right") - Input.get_action_strength("left")
-			
-			if not paused:
-				if direction:
-					velocity.x = direction * SPEED
-					if is_on_floor():
-						$AnimatedSprite2D.play('default')
-				else:
-					velocity.x = move_toward(velocity.x, 0, SPEED)
-					if is_on_floor():
-						$AnimatedSprite2D.animation = 'default'
-						$AnimatedSprite2D.frame = 0
-						$AnimatedSprite2D.pause()
-
-			# Update the character's position based on velocity.
-			move_and_slide()
+			handle_gravity(delta)
+			print('Default')
+			movement_logic(delta)
 		PlayerStates.HOOKED:
-			# Calculate swing trajectory
-			velocity.y += gravity * delta
-			var hook_to_player = global_position - hook.global_position
-
-			var perpendicular = Vector2(-hook_to_player.y, hook_to_player.x).normalized()
+			swing_logic(delta)
+		PlayerStates.SWUNG:
+			swung_logic(delta)
 			
-			var input_direction = Input.get_action_strength("right") - Input.get_action_strength("left")
-			var target_swing_direction: Vector2
-			
-
-			if input_direction > 0:
-				target_swing_direction = perpendicular
-			else:
-				target_swing_direction = -perpendicular
-			
-			var current_swing_direction = velocity.normalized()
-			var dot_product = current_swing_direction.dot(target_swing_direction)
-			
-			var swing_influence = Input.get_action_strength("left") - Input.get_action_strength("right")
-			var swing_influence_factor = 0.1 + 0.5 * (1.0 - dot_product) * 0.5 # Adjust as needed 
-			
-			velocity += perpendicular * (PLAYER_HOOK_SPEED * swing_influence * swing_influence_factor)
-			var air_resistance = 0.9  # Adjust as needed
-			velocity *= air_resistance
-			
-			var max_velocity = 500.0  # Adjust as needed
-			velocity = velocity.limit_length(max_velocity)
-			
-			velocity.x += swing_influence * swing_influence_factor
-			
-			if collision:
-				player_state = PlayerStates.DEFAULT
-				hide_hook()
-			elif global_position.distance_to(hook.global_position) <= PLAYER_HOOK_SPEED * delta:
-				global_position = hook.global_position
-				player_state = PlayerStates.DEFAULT
-				hide_hook()
-			elif global_position.distance_to(hook.global_position) > HOOK_MAX_LENGTH:
-				# Player missed the hook, retract it
-				player_state = PlayerStates.DEFAULT
-				hook_state = HookStates.RETRACT_TO_PLAYER
-		
+	move_and_slide()
+	
 	match hook_state:
 		HookStates.EXTEND:
-			var new_hook_position = hook.global_position + hook_direction * HOOK_SPEED * delta
-			var distance_to_player = new_hook_position.distance_to(global_position)
-			var collision := move_and_collide(velocity * delta)
-
-			hook.global_position += hook_direction * HOOK_SPEED * delta
-			if collision:
-				# Hook hit something, handle accordingly (not shown in this snippet)
-				PlayerStates.HOOKED
-
-				pass
-			else:
-				if distance_to_player >= HOOK_MAX_LENGTH:
-					hook_state = HookStates.RETRACT_TO_PLAYER
-				else:
-					hook.global_position = new_hook_position
-				
-				
-				
+			extend_hook_logic(delta)
 		HookStates.RETRACT_TO_PLAYER:
-			hook.global_position += hook.global_position.direction_to(global_position) * HOOK_SPEED * delta
-			if hook.global_position.distance_to(global_position) <= HOOK_SPEED * delta:
-				hook_state = HookStates.NONE
-				hide_hook()
-				
+			retract_hook_logic(delta)
+	
 	if hook.visible:
 		line.points[1] = to_local(hook.global_position)
+
+func swung_logic(delta):
+	var dampening = 0.99
+	velocity *= dampening
+	if is_on_floor():
+		player_state = PlayerStates.DEFAULT
+
+func handle_gravity(delta):
+	if not is_on_floor() and player_state == PlayerStates.DEFAULT:
+		velocity.y += gravity * delta
+		$AnimatedSprite2D.play('new_animation')
+		$ground_poly.disabled = true
+		$air_poly.disabled = false
+	else:
+		$Camera2D.position_smoothing_speed = 5
+		$ground_poly.disabled = false
+		$air_poly.disabled = true
+		velocity.y = 0  # Reset vertical velocity when on the floor.
+		
+func movement_logic(delta):
+	# Handle jump.
+	if Input.is_action_just_pressed("jump") and is_on_floor() and not paused:
+		velocity.y = JUMP_VELOCITY  # Use a negative value for upward velocity.
+		velocity.y = min(velocity.y, MAX_FALL_SPEED)
+		player_state = PlayerStates.DEFAULT
+
+
+
+	# Get the input direction and handle the movement/deceleration.
+	var direction = Input.get_action_strength("right") - Input.get_action_strength("left")
+	print(direction)
+	if not paused:
+		if Input.is_action_just_pressed("left"):
+			$AnimatedSprite2D.flip_h = true
+		if Input.is_action_just_pressed("right"):
+			$AnimatedSprite2D.flip_h = false
+		if direction:
+			velocity.x = direction * SPEED
+			if is_on_floor():
+				$AnimatedSprite2D.play('default')
+		else:
+			if hook_state == HookStates.NONE:
+				velocity.x = move_toward(velocity.x, 0, SPEED)
+			if is_on_floor():
+				$AnimatedSprite2D.animation = 'default'
+				$AnimatedSprite2D.frame = 0
+				$AnimatedSprite2D.pause()
+	
+func swing_logic(delta):
+	var hook_to_player = global_position - hook.global_position
+	var hook_to_player_length = hook_to_player.length()
+	var perpendicular = Vector2(-hook_to_player.y, hook_to_player.x).normalized()
+	
+	if hook_to_player_length > HOOK_MAX_LENGTH and hook_state == HookStates.EXTEND:
+		# Player missed the hook, retract it
+		player_state = PlayerStates.DEFAULT
+		hook_state = HookStates.RETRACT_TO_PLAYER
+		
+	elif hook_to_player_length > HOOK_MAX_LENGTH and hook_state == HookStates.HOOKED:
+		player_state = PlayerStates.SWUNG
+		hook_state = HookStates.RETRACT_TO_PLAYER
+		
+	elif hook_to_player_length < HOOK_MAX_LENGTH and hook_state == HookStates.HOOKED:
+		var swing_gravity = 800
+		velocity.y += swing_gravity * delta
+		
+		var target_swing_direction: Vector2
+		var current_swing_direction = velocity.normalized()
+		var dot_product = current_swing_direction.dot(target_swing_direction)
+		
+		var swing_influence = Input.get_action_strength("left") - Input.get_action_strength("right")
+		var swing_influence_factor = 0.1 + 0.5 * (1.0 - dot_product) * 0.5  # Adjust as needed
+		
+		if swing_influence > 0:
+			target_swing_direction = -perpendicular
+		else:
+			target_swing_direction = perpendicular
+			
+
+		velocity += perpendicular * (PLAYER_HOOK_SPEED * swing_influence * swing_influence_factor)
+		
+		var air_resistance = 0.89  # Adjust as needed
+		velocity *= air_resistance
+		
+		velocity.x += swing_influence * swing_influence_factor
+	if hook_to_player_length <= HOOK_MAX_LENGTH and hook_state == HookStates.HOOKED:
+		if Input.is_action_pressed("retract"):
+			global_position += global_position.direction_to(hook.global_position) * HOOK_SPEED * delta
+		elif Input.is_action_pressed("extract"):
+			global_position -= global_position.direction_to(hook.global_position) * HOOK_SPEED * delta
+
+
+			
 	
 
+func extend_hook_logic(delta):
+	
+	var new_hook_position = hook.global_position + hook_direction * HOOK_SPEED * delta
+	var distance_to_player = new_hook_position.distance_to(global_position)
+	hook.global_position += hook_direction * HOOK_SPEED * delta
+
+	if distance_to_player >= HOOK_MAX_LENGTH:
+		hook_state = HookStates.RETRACT_TO_PLAYER
+		player_state = PlayerStates.DEFAULT
+		
+	elif $Hook.body_entered:
+		HOOK_LENGTH = distance_to_player
+		player_state = PlayerStates.HOOKED
+		hook.global_position = new_hook_position
+		
+	else:
+		hook.global_position += hook_direction * HOOK_SPEED * delta
+
+
+func retract_hook_logic(delta):
+		hook.global_position += hook.global_position.direction_to(global_position) * HOOK_SPEED * delta
+		if hook.global_position.distance_to(global_position) <= HOOK_SPEED * delta:
+			player_state = PlayerStates.DEFAULT
+			hook_state = HookStates.NONE
+			hide_hook()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept") and hook_state == HookStates.NONE:
@@ -152,20 +184,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		hook_shape.disabled = false
 
 
+
 func _on_hook_body_entered(_body: Node2D) -> void:
-	collision = true
-	if hook.global_position.distance_to(global_position) >= HOOK_MAX_LENGTH:
+	var hook_distance = hook.position.distance_to(global_position)
+	if hook_distance <= HOOK_MAX_LENGTH:
 		player_state = PlayerStates.HOOKED
 		velocity = global_position.direction_to(hook.global_position) * PLAYER_HOOK_SPEED
-		hook_state = HookStates.NONE
+		hook_state = HookStates.HOOKED
 		hook_shape.set_disabled.call_deferred(true)
 		
-
-
 
 func hide_hook() -> void:
 	hook.hide()
 	line.hide()
+	
 	hook_shape.set_disabled.call_deferred(true)
 
 
@@ -173,8 +205,8 @@ func _on_death_colider_body_entered(body):
 	position.x = 50
 	position.y = 150
 	hide_hook()
-
 	$Camera2D.reset_smoothing()
+	
 
 
 

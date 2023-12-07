@@ -9,10 +9,12 @@ func _process(delta):
 		if showing and pausible:
 			$layer_main.hide()
 			showing = false
+			CharacterLoader.get_node("Player").paused = false
 
 		elif not showing and pausible:
 			$layer_main.show()
 			showing = true
+			CharacterLoader.get_node("Player").paused = true
 	if showing and not pausible:
 		$layer_main.hide()
 		showing = false
