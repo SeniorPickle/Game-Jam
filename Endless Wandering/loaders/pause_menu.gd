@@ -9,11 +9,10 @@ func _process(delta):
 		if showing and pausible:
 			$layer_main.hide()
 			showing = false
-			get_tree().paused = false
+
 		elif not showing and pausible:
 			$layer_main.show()
 			showing = true
-			get_tree().paused = false
 	if showing and not pausible:
 		$layer_main.hide()
 		showing = false

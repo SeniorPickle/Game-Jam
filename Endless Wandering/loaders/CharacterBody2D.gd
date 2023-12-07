@@ -3,7 +3,7 @@ extends CharacterBody2D
 enum PlayerStates {DEFAULT, HOOKED}
 enum HookStates {NONE, EXTEND, RETRACT_TO_PLAYER}
 
-
+var LEVEL = 0
 @export var SPEED: int
 @export var JUMP_VELOCITY: int
 @export var gravity: int
@@ -17,7 +17,7 @@ const ACCELERATION := 1_500.0
 var hook_direction: Vector2
 var player_state: PlayerStates = PlayerStates.DEFAULT
 var hook_state: HookStates = HookStates.NONE
-
+var collision: bool = false
 @onready var hook := $Hook
 @onready var hook_shape := $Hook/CollisionShape2D
 @onready var line := $Line2D
@@ -29,7 +29,6 @@ func _ready():
 func _physics_process(delta):
 	match player_state:
 		PlayerStates.DEFAULT:
-			# Add the gravity only when the character is not on the floor.
 			if not is_on_floor():
 				velocity.y += gravity * delta
 				$AnimatedSprite2D.play('new_animation')
@@ -41,7 +40,7 @@ func _physics_process(delta):
 				$air_poly.disabled = true
 				velocity.y = 0  # Reset vertical velocity when on the floor.
 			# Handle jump.
-			if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+			if Input.is_action_just_pressed("jump") and is_on_floor():
 				velocity.y = JUMP_VELOCITY  # Use a negative value for upward velocity.
 				velocity.y = min(velocity.y, MAX_FALL_SPEED)
 				player_state = PlayerStates.DEFAULT
@@ -77,6 +76,7 @@ func _physics_process(delta):
 			
 			var input_direction = Input.get_action_strength("right") - Input.get_action_strength("left")
 			var target_swing_direction: Vector2
+			
 
 			if input_direction > 0:
 				target_swing_direction = perpendicular
@@ -97,7 +97,6 @@ func _physics_process(delta):
 			velocity = velocity.limit_length(max_velocity)
 			
 			velocity.x += swing_influence * swing_influence_factor
-			var collision := move_and_collide(velocity * delta)
 			
 			if collision:
 				player_state = PlayerStates.DEFAULT
@@ -113,10 +112,24 @@ func _physics_process(delta):
 		
 	match hook_state:
 		HookStates.EXTEND:
+			var new_hook_position = hook.global_position + hook_direction * HOOK_SPEED * delta
+			var distance_to_player = new_hook_position.distance_to(global_position)
+			var collision := move_and_collide(velocity * delta)
+
 			hook.global_position += hook_direction * HOOK_SPEED * delta
-			if hook.global_position.distance_to(global_position) >= HOOK_MAX_LENGTH:
-				hook_state = HookStates.RETRACT_TO_PLAYER
-				hook_shape.set_disabled.call_deferred(true)
+			if collision:
+				# Hook hit something, handle accordingly (not shown in this snippet)
+				PlayerStates.HOOKED
+
+				pass
+			else:
+				if distance_to_player >= HOOK_MAX_LENGTH:
+					hook_state = HookStates.RETRACT_TO_PLAYER
+				else:
+					hook.global_position = new_hook_position
+				
+				
+				
 		HookStates.RETRACT_TO_PLAYER:
 			hook.global_position += hook.global_position.direction_to(global_position) * HOOK_SPEED * delta
 			if hook.global_position.distance_to(global_position) <= HOOK_SPEED * delta:
@@ -125,11 +138,13 @@ func _physics_process(delta):
 				
 	if hook.visible:
 		line.points[1] = to_local(hook.global_position)
+	
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("click") and hook_state == HookStates.NONE:
+	if event.is_action_pressed("ui_accept") and hook_state == HookStates.NONE:
 		hook.global_position = global_position
+		var hook_target = get_local_mouse_position().normalized() * HOOK_MAX_LENGTH
 		hook_state = HookStates.EXTEND
 		hook_direction = get_local_mouse_position().normalized()
 		hook.show()
@@ -138,10 +153,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_hook_body_entered(_body: Node2D) -> void:
-	player_state = PlayerStates.HOOKED
-	velocity = global_position.direction_to(hook.global_position) * PLAYER_HOOK_SPEED
-	hook_state = HookStates.NONE
-	hook_shape.set_disabled.call_deferred(true)
+	collision = true
+	if hook.global_position.distance_to(global_position) >= HOOK_MAX_LENGTH:
+		player_state = PlayerStates.HOOKED
+		velocity = global_position.direction_to(hook.global_position) * PLAYER_HOOK_SPEED
+		hook_state = HookStates.NONE
+		hook_shape.set_disabled.call_deferred(true)
+		
+
 
 
 func hide_hook() -> void:
@@ -167,8 +186,9 @@ func _on_tree_entered():
 		if current_scene_name != "MainMenu":
 			paused = true
 		if current_scene_name == "first_level":
-			position.y = 50
-			position.x = 150
+			position.y = 150
+			position.x = 50
+			LEVEL = 1
 			$Camera2D.reset_smoothing()
 			show()
 			print("Character Visible and moved to", position)

@@ -202,12 +202,6 @@ value = 1.0
 script = ExtResource("3_lihq1")
 bus_name = "sfx"
 
-[node name="setting_back" type="Button" parent="Options/MarginContainer/VBoxContainer3/SoundSettings"]
-layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_fegv1")
-text = "Back"
-flat = true
-
 [node name="GraphicSettings" type="VBoxContainer" parent="Options/MarginContainer/VBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -268,6 +262,12 @@ theme_override_font_sizes/font_size = 12
 text = "D"
 flat = true
 
+[node name="setting_back" type="Button" parent="Options/MarginContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fegv1")
+text = "Back"
+flat = true
+
 [node name="Achievments" type="CanvasLayer" parent="."]
 visible = false
 
@@ -276,4 +276,4 @@ visible = false
 [connection signal="pressed" from="Options/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer/Graphics" to="." method="_on_graphics_pressed"]
 [connection signal="pressed" from="Options/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer/Sound" to="." method="_on_sound_pressed"]
 [connection signal="pressed" from="Options/MarginContainer/VBoxContainer3/VBoxContainer2/HBoxContainer/Other" to="." method="_on_other_pressed"]
-[connection signal="pressed" from="Options/MarginContainer/VBoxContainer3/SoundSettings/setting_back" to="." method="_on_setting_back_pressed"]
+[connection signal="pressed" from="Options/MarginContainer/VBoxContainer3/setting_back" to="." method="_on_setting_back_pressed"]

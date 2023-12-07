@@ -6,6 +6,7 @@ signal LvlOne
 func _ready():
 	CharacterLoader.get_node("Player").emit_signal("tree_entered")
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if not $AudioStreamPlayer2D.playing:

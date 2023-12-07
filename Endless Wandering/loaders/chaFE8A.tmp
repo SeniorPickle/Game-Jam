@@ -70,7 +70,8 @@ script = ExtResource("1_f5aau")
 SPEED = 120
 JUMP_VELOCITY = -400
 gravity = 800
-MAX_FALL_SPEED = 2000
+MAX_FALL_SPEED = 350
+paused = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 z_index = 10
