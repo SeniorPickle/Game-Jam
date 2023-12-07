@@ -210,7 +210,7 @@ func hide_hook() -> void:
 
 
 func _on_death_colider_body_entered(body):
-	position.x = 50
+	position.x = 320
 	position.y = 150
 	hide_hook()
 	$Camera2D.reset_smoothing()
@@ -227,7 +227,7 @@ func _on_tree_entered():
 			paused = true
 		if current_scene_name == "first_level":
 			position.y = 150
-			position.x = 50
+			position.x = 320
 			LEVEL = 1
 			$Camera2D.reset_smoothing()
 			show()
