@@ -12,7 +12,7 @@ var LEVEL = 0
 @export var paused: bool = false
 @export var HOOK_LENGTH: int = 0 
 const HOOK_MAX_LENGTH := 200.0
-const HOOK_SPEED := 800.0
+const HOOK_SPEED := 700.0
 const PLAYER_HOOK_SPEED := 300.0
 const ACCELERATION := 1_500.0
 
@@ -63,12 +63,8 @@ func handle_gravity(delta):
 	if not is_on_floor() and player_state == PlayerStates.DEFAULT:
 		velocity.y += gravity * delta
 		$AnimatedSprite2D.play('new_animation')
-		$ground_poly.disabled = true
-		$air_poly.disabled = false
 	else:
 		$Camera2D.position_smoothing_speed = 5
-		$ground_poly.disabled = false
-		$air_poly.disabled = true
 		velocity.y = 0  # Reset vertical velocity when on the floor.
 		
 func movement_logic(delta):
@@ -83,6 +79,14 @@ func movement_logic(delta):
 	# Get the input direction and handle the movement/deceleration.
 	var direction = Input.get_action_strength("right") - Input.get_action_strength("left")
 	print(direction)
+	if paused and is_on_floor():
+		velocity.x = 0
+		$AnimatedSprite2D.animation = 'default'
+		$AnimatedSprite2D.frame = 0
+		$AnimatedSprite2D.pause()
+	elif paused and not is_on_floor():
+		velocity.x = 0
+		velocity.y = 0
 	if not paused:
 		if Input.is_action_just_pressed("left"):
 			$AnimatedSprite2D.flip_h = true
@@ -104,7 +108,9 @@ func swing_logic(delta):
 	var hook_to_player = global_position - hook.global_position
 	var hook_to_player_length = hook_to_player.length()
 	var perpendicular = Vector2(-hook_to_player.y, hook_to_player.x).normalized()
-	
+	var swing_pull = 60
+	if not is_on_floor():
+		$AnimatedSprite2D.play('new_animation')
 	if hook_to_player_length > HOOK_MAX_LENGTH and hook_state == HookStates.EXTEND:
 		# Player missed the hook, retract it
 		player_state = PlayerStates.DEFAULT
@@ -137,6 +143,8 @@ func swing_logic(delta):
 		velocity *= air_resistance
 		
 		velocity.x += swing_influence * swing_influence_factor
+		global_position += global_position.direction_to(hook.global_position) * swing_pull * delta
+		
 	if hook_to_player_length <= HOOK_MAX_LENGTH and hook_state == HookStates.HOOKED:
 		if Input.is_action_pressed("retract"):
 			global_position += global_position.direction_to(hook.global_position) * HOOK_SPEED * delta
@@ -174,7 +182,7 @@ func retract_hook_logic(delta):
 			hide_hook()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept") and hook_state == HookStates.NONE:
+	if event.is_action_pressed("ui_accept") and hook_state == HookStates.NONE and not paused:
 		hook.global_position = global_position
 		var hook_target = get_local_mouse_position().normalized() * HOOK_MAX_LENGTH
 		hook_state = HookStates.EXTEND

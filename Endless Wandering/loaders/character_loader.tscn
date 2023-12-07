@@ -103,9 +103,6 @@ texture = ExtResource("4_jg6si")
 [node name="ground_poly" type="CollisionPolygon2D" parent="Player"]
 polygon = PackedVector2Array(-3.99998, -20, -5.99998, -16, -5.99998, -0.999992, -7.99998, 1.00001, -7.99998, 5.00001, -11, 8.00001, -13, 15, -16, 15, -16, 21, 13, 21, 13, 15, 12, 9.00001, 11, 4.00001, 12, -1.99999, 12, -18, 7.00002, -21, 4.00002, -22)
 
-[node name="air_poly" type="CollisionPolygon2D" parent="Player"]
-polygon = PackedVector2Array(-31, -11, -8.99998, 9.00001, 9.00002, 9.00001, 18, 7.62939e-06, 20, -7.99999, 20, -19, 14, -24, 6.00002, -24, -4.99998, -26, -15, -23, -18, -14, -29, -15)
-
 [node name="death colider" type="Area2D" parent="Player"]
 collision_layer = 16
 collision_mask = 16
