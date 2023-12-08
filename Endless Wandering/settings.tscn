@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://brfp3qxygxgil"]
+[gd_scene load_steps=7 format=3 uid="uid://brfp3qxygxgil"]
 
+[ext_resource type="Script" path="res://Options.gd" id="1_qhmf5"]
 [ext_resource type="Script" path="res://Volume.gd" id="1_t5euk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u0o7c"]
@@ -11,6 +12,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y1dvl"]
 
 [node name="settings" type="Node2D"]
+script = ExtResource("1_qhmf5")
 
 [node name="Options" type="CanvasLayer" parent="."]
 visible = false

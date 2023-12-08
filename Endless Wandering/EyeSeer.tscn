@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b7l4i678ih04v"]
+[gd_scene load_steps=28 format=3 uid="uid://b7l4i678ih04v"]
 
 [ext_resource type="Script" path="res://EyeSeer.gd" id="1_jhbr0"]
 [ext_resource type="Texture2D" uid="uid://cbbc23nww1hv2" path="res://Assets/Sprites/enemies/EyeSeer.png" id="2_5l16k"]
@@ -251,6 +251,9 @@ radius = 19.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oov8c"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_38vpb"]
+size = Vector2(60, 20)
+
 [node name="EyeSeer" type="CharacterBody2D"]
 script = ExtResource("1_jhbr0")
 
@@ -293,3 +296,10 @@ collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor_left"]
 shape = SubResource("RectangleShape2D_oov8c")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="check" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_38vpb")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

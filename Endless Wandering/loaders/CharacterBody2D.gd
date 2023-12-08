@@ -5,6 +5,7 @@ enum HookStates {NONE, EXTEND, RETRACT_TO_PLAYER, HOOKED}
 
 var LEVEL = 0
 
+@export var health: int = 100
 @export var SPEED: int
 @export var JUMP_VELOCITY: int
 @export var gravity: int
@@ -29,6 +30,10 @@ func _ready():
 	pass
 
 func _physics_process(delta):
+	$Camera2D/hud/ProgressBar.value = health
+	if health <= 0:
+		hide()
+		paused = true
 	print(player_state, hook_state)
 	
 	
@@ -229,6 +234,7 @@ func _on_tree_entered():
 		if current_scene_name != "MainMenu":
 			paused = true
 		if current_scene_name == "first_level":
+			$Camera2D/hud.show()
 			$Camera2D.make_current()
 			position.y = 150
 			position.x = 320
@@ -237,9 +243,11 @@ func _on_tree_entered():
 			show()
 			print("Character Visible and moved to", position)
 		elif current_scene_name == "MainMenu":
+			$Camera2D/hud.hide()
 			hide()
 			print("Character Hidden")
 		else:
+			$Camera2D/hud.hide()
 			show()
 			print("Character Visible")
 	else:

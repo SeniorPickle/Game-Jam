@@ -48,6 +48,7 @@ func _on_other_pressed():
 
 
 func _on_back_opt_pressed():
+	# TODO: Move Buttons To the Actual Settings Script, and make it the settings screen
 	$Options.hide()
 
 
