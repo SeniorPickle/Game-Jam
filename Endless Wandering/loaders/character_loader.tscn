@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bmsaybwhiw00v"]
+[gd_scene load_steps=17 format=3 uid="uid://bmsaybwhiw00v"]
 
 [ext_resource type="Script" path="res://loaders/CharacterBody2D.gd" id="1_f5aau"]
 [ext_resource type="Texture2D" uid="uid://y0ueythsp15o" path="res://Assets/Sprites/Characters/character_main_anim.png" id="2_l7hmq"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dj24g2fg8rukw" path="res://Assets/Sprites/Environment/Background.png" id="4_jg6si"]
 [ext_resource type="AudioStream" uid="uid://bylcsukvw315l" path="res://Assets/music/sfx/steps1.wav" id="4_ytn50"]
 [ext_resource type="AudioStream" uid="uid://cpuyxgrqrqisj" path="res://Assets/music/sfx/steps2.wav" id="5_dn4du"]
+[ext_resource type="StyleBox" uid="uid://tq6e8gy4hunb" path="res://new_style_box_flat.tres" id="7_plmfh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yodmo"]
 atlas = ExtResource("2_l7hmq")
@@ -55,8 +56,8 @@ stream_0/weight = 1.0
 stream_1/stream = ExtResource("5_dn4du")
 stream_1/weight = 1.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tp0nf"]
-bg_color = Color(0.54902, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2n81c"]
+bg_color = Color(0.701961, 0, 0.0862745, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wk0c5"]
 
@@ -108,7 +109,8 @@ texture = ExtResource("4_jg6si")
 [node name="ProgressBar" type="ProgressBar" parent="Player/Camera2D/hud"]
 offset_right = 317.0
 offset_bottom = 27.0
-theme_override_styles/background = SubResource("StyleBoxFlat_tp0nf")
+theme_override_styles/background = ExtResource("7_plmfh")
+theme_override_styles/fill = SubResource("StyleBoxFlat_2n81c")
 value = 100.0
 show_percentage = false
 
