@@ -87,6 +87,9 @@ func movement_logic(delta):
 	elif paused and not is_on_floor():
 		velocity.x = 0
 		velocity.y = 0
+		$AnimatedSprite2D.animation = 'new_animation'
+		$AnimatedSprite2D.frame = 0
+		$AnimatedSprite2D.pause()
 	if not paused:
 		if Input.is_action_just_pressed("left"):
 			$AnimatedSprite2D.flip_h = true
@@ -226,6 +229,7 @@ func _on_tree_entered():
 		if current_scene_name != "MainMenu":
 			paused = true
 		if current_scene_name == "first_level":
+			$Camera2D.make_current()
 			position.y = 150
 			position.x = 320
 			LEVEL = 1

@@ -1,11 +1,14 @@
 extends Node2D
 
+var SEER = preload("res://EyeSeer.tscn")
 
 signal LvlOne
 
 func _ready():
 	CharacterLoader.get_node("Player").emit_signal("tree_entered")
-
+	var seer = SEER.instantiate()
+	seer.position = Vector2(4200, 150)
+	add_child(seer)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

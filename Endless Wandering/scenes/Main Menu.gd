@@ -4,6 +4,7 @@ extends Node2D
 
 func _ready():
 	CharacterLoader.get_node("Player").emit_signal("tree_entered")
+	CharacterLoader.get_node("Player").paused = false
 
 #region buttons
 
