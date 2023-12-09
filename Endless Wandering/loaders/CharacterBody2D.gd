@@ -218,8 +218,10 @@ func hide_hook() -> void:
 
 
 func _on_death_colider_body_entered(body):
+	player_state = PlayerStates.DEFAULT
 	position.x = 320
 	position.y = 150
+	
 	hide_hook()
 	$Camera2D.reset_smoothing()
 	

@@ -68,7 +68,6 @@ size = Vector2(16, 16)
 metadata/_edit_horizontal_guides_ = [0.0]
 
 [node name="Player" type="CharacterBody2D" parent="."]
-process_mode = 1
 position = Vector2(50, 150)
 script = ExtResource("1_f5aau")
 SPEED = 120
@@ -107,8 +106,10 @@ texture = ExtResource("4_jg6si")
 [node name="hud" type="CanvasLayer" parent="Player/Camera2D"]
 
 [node name="ProgressBar" type="ProgressBar" parent="Player/Camera2D/hud"]
-offset_right = 317.0
-offset_bottom = 27.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 321.0
+offset_bottom = 31.0
 theme_override_styles/background = ExtResource("7_plmfh")
 theme_override_styles/fill = SubResource("StyleBoxFlat_2n81c")
 value = 100.0

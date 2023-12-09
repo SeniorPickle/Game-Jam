@@ -21,10 +21,11 @@ config/icon="res://Assets/Sprites/game images/icon.png"
 CharacterLoader="*res://loaders/character_loader.tscn"
 PauseMenu="*res://loaders/pause_menu.tscn"
 LoadScreen="*res://load_screen.tscn"
+Options="*res://options.tscn"
 
 [display]
 
-window/size/mode=2
+window/size/mode=4
 window/stretch/mode="viewport"
 
 [input]

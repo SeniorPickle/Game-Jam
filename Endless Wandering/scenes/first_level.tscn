@@ -218,34 +218,51 @@ collision_mask = 256
 position = Vector2(-1.5, -6)
 shape = SubResource("RectangleShape2D_dxpix")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = -184.0
-offset_right = 120.0
-offset_bottom = 41.0
+[node name="SeerSpawn" type="Marker2D" parent="."]
+position = Vector2(4039, 132)
+
+[node name="Node" type="Node" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Node"]
+offset_left = 152.0
+offset_top = 8.0
+offset_right = 456.0
+offset_bottom = 49.0
 bbcode_enabled = true
 text = "[center]Move by using your A and D keys[/center]"
 fit_content = true
 metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="."]
-offset_left = 853.0
-offset_top = 1.0
-offset_right = 1157.0
-offset_bottom = 42.0
+[node name="RichTextLabel2" type="RichTextLabel" parent="Node"]
+offset_left = 1189.0
+offset_top = 9.0
+offset_right = 1493.0
+offset_bottom = 50.0
 bbcode_enabled = true
 text = "[center]Jump by using the W key.[/center]"
 fit_content = true
 metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="."]
-offset_left = 2225.0
-offset_top = -2.0
-offset_right = 2529.0
-offset_bottom = 67.0
+[node name="RichTextLabel3" type="RichTextLabel" parent="Node"]
+offset_left = 2561.0
+offset_top = 6.0
+offset_right = 2865.0
+offset_bottom = 75.0
 bbcode_enabled = true
 text = "[center]Aim using your mouse, then press the SPACE bar to launch your grappling hook towards grapple points[/center]"
 fit_content = true
 metadata/_edit_use_anchors_ = true
 
-[node name="SeerSpawn" type="Marker2D" parent="."]
-position = Vector2(3555, 131)
+[node name="RichTextLabel4" type="RichTextLabel" parent="Node"]
+anchors_preset = -1
+anchor_left = -0.0885417
+anchor_right = 0.0625
+anchor_bottom = 0.0354938
+offset_left = 3553.0
+offset_top = 6.0
+offset_right = 3857.0
+offset_bottom = 75.0
+bbcode_enabled = true
+text = "[center]Up ahead is an EyeSeer, they can only see to their sides. Unfortunately, they cannot be killed by you,  mortal. To escape them try using the top of their head like a platform.[/center]"
+fit_content = true
+metadata/_edit_use_anchors_ = true
