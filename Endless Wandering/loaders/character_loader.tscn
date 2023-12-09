@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bmsaybwhiw00v"]
+[gd_scene load_steps=28 format=3 uid="uid://bmsaybwhiw00v"]
 
 [ext_resource type="Script" path="res://loaders/CharacterBody2D.gd" id="1_f5aau"]
 [ext_resource type="Texture2D" uid="uid://y0ueythsp15o" path="res://Assets/Sprites/Characters/character_main_anim.png" id="2_l7hmq"]
@@ -7,6 +7,8 @@
 [ext_resource type="AudioStream" uid="uid://bylcsukvw315l" path="res://Assets/music/sfx/steps1.wav" id="4_ytn50"]
 [ext_resource type="AudioStream" uid="uid://cpuyxgrqrqisj" path="res://Assets/music/sfx/steps2.wav" id="5_dn4du"]
 [ext_resource type="StyleBox" uid="uid://tq6e8gy4hunb" path="res://new_style_box_flat.tres" id="7_plmfh"]
+[ext_resource type="Texture2D" uid="uid://dfmph2iy1xc7o" path="res://Assets/Sprites/char_tools/dagger.png" id="8_k8diy"]
+[ext_resource type="Texture2D" uid="uid://de73nsqskdq4q" path="res://Assets/Sprites/char_tools/grappling_hook.png" id="9_hlyvf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yodmo"]
 atlas = ExtResource("2_l7hmq")
@@ -59,10 +61,40 @@ stream_1/weight = 1.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2n81c"]
 bg_color = Color(0.701961, 0, 0.0862745, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hbxrn"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_hov3u"]
+device = -1
+keycode = 49
+unicode = 49
+
+[sub_resource type="Shortcut" id="Shortcut_3s77h"]
+events = [SubResource("InputEventKey_hov3u")]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0h4s7"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_17rhj"]
+device = -1
+keycode = 50
+unicode = 50
+
+[sub_resource type="Shortcut" id="Shortcut_14k8l"]
+events = [SubResource("InputEventKey_17rhj")]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7rlce"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_11lvw"]
+device = -1
+keycode = 51
+unicode = 51
+
+[sub_resource type="Shortcut" id="Shortcut_vhkme"]
+events = [SubResource("InputEventKey_11lvw")]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wk0c5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjs31"]
-size = Vector2(16, 16)
+size = Vector2(50, 70)
 
 [node name="character_loader" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [0.0]
@@ -123,6 +155,40 @@ offset_bottom = 25.0
 text = "Health"
 fit_content = true
 
+[node name="HBoxContainer" type="HBoxContainer" parent="Player/Camera2D/hud"]
+offset_left = 9.0
+offset_top = 562.0
+offset_right = 251.0
+offset_bottom = 640.0
+alignment = 1
+
+[node name="inv_1" type="Button" parent="Player/Camera2D/hud/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Grappling Hook"
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hbxrn")
+shortcut = SubResource("Shortcut_3s77h")
+icon = ExtResource("9_hlyvf")
+expand_icon = true
+
+[node name="inv_2" type="Button" parent="Player/Camera2D/hud/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Throwing Dagger"
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0h4s7")
+shortcut = SubResource("Shortcut_14k8l")
+icon = ExtResource("8_k8diy")
+expand_icon = true
+
+[node name="inv_3" type="Button" parent="Player/Camera2D/hud/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7rlce")
+shortcut = SubResource("Shortcut_vhkme")
+
+[node name="dagger_cooldown" type="Timer" parent="Player/Camera2D/hud"]
+wait_time = 1.5
+
 [node name="ground_poly" type="CollisionPolygon2D" parent="Player"]
 polygon = PackedVector2Array(-3.99998, -20, -5.99998, -16, -5.99998, -0.999992, -7.99998, 1.00001, -7.99998, 5.00001, -11, 8.00001, -13, 15, -16, 15, -16, 21, 13, 21, 13, 15, 12, 9.00001, 11, 4.00001, 12, -1.99999, 12, -18, 7.00002, -21, 4.00002, -22)
 
@@ -147,22 +213,25 @@ scale = Vector2(0.2, 0.2)
 collision_layer = 8
 collision_mask = 8
 
-[node name="ColorRect" type="ColorRect" parent="Player/Hook"]
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 8.0
-mouse_filter = 2
-color = Color(0, 1, 1, 1)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Hook"]
+position = Vector2(-5.72205e-06, -6.19888e-06)
+scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_kjs31")
 disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Hook"]
+position = Vector2(2.5, -4.76837e-06)
+scale = Vector2(2.96875, 2.8125)
+texture = ExtResource("9_hlyvf")
 
 [node name="spawnpoint" type="Marker2D" parent="."]
 position = Vector2(50, 150)
 
 [connection signal="tree_entered" from="Player" to="Player" method="_on_tree_entered"]
 [connection signal="timeout" from="Player/step_sfx" to="Player" method="_on_step_sfx_timeout"]
+[connection signal="pressed" from="Player/Camera2D/hud/HBoxContainer/inv_1" to="Player" method="_on_inv_1_pressed"]
+[connection signal="pressed" from="Player/Camera2D/hud/HBoxContainer/inv_2" to="Player" method="_on_inv_2_pressed"]
+[connection signal="pressed" from="Player/Camera2D/hud/HBoxContainer/inv_3" to="Player" method="_on_inv_3_pressed"]
+[connection signal="timeout" from="Player/Camera2D/hud/dagger_cooldown" to="Player" method="_on_dagger_cooldown_timeout"]
 [connection signal="body_entered" from="Player/death colider" to="Player" method="_on_death_colider_body_entered"]
 [connection signal="body_entered" from="Player/Hook" to="Player" method="_on_hook_body_entered"]

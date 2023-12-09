@@ -5,6 +5,13 @@ enum HookStates {NONE, EXTEND, RETRACT_TO_PLAYER, HOOKED}
 
 var LEVEL = 0
 
+var hook_sel:bool = true
+var dagger_sel:bool = false
+var dune_surf_sel:bool = false
+var dag_dir:int = 1
+
+var dag_ready = true
+
 @export var health: int = 100
 @export var SPEED: int
 @export var JUMP_VELOCITY: int
@@ -98,8 +105,10 @@ func movement_logic(delta):
 	if not paused:
 		if Input.is_action_just_pressed("left"):
 			$AnimatedSprite2D.flip_h = true
+			dag_dir = -1
 		if Input.is_action_just_pressed("right"):
 			$AnimatedSprite2D.flip_h = false
+			dag_dir = 1
 		if direction:
 			velocity.x = direction * SPEED
 			if is_on_floor():
@@ -190,14 +199,27 @@ func retract_hook_logic(delta):
 			hide_hook()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept") and hook_state == HookStates.NONE and not paused:
+	if event.is_action_pressed("ui_accept") and hook_state == HookStates.NONE and not paused and hook_sel:
 		hook.global_position = global_position
+		var target_dir = get_global_mouse_position() - $Hook.global_position
 		var hook_target = get_local_mouse_position().normalized() * HOOK_MAX_LENGTH
 		hook_state = HookStates.EXTEND
 		hook_direction = get_local_mouse_position().normalized()
+		$Hook/Sprite2D.look_at(get_global_mouse_position())
 		hook.show()
 		line.show()
 		hook_shape.disabled = false
+		
+	elif event.is_action_pressed("ui_accept") and not paused and hook_state == HookStates.NONE and dagger_sel and dag_ready:
+		var dagger = preload("res://dagger_spawn.tscn")
+		var dagger_instance = dagger.instantiate()
+		dagger_instance.position = global_position
+		add_sibling(dagger_instance)
+		print('spawned')
+		dag_ready = false
+		$Camera2D/hud/dagger_cooldown.start()
+	elif event.is_action_pressed("ui_accept") and not paused and hook_state == HookStates.NONE and dune_surf_sel:
+		pass
 
 
 
@@ -269,3 +291,25 @@ func _on_step_sfx_timeout():
 			$AudioStreamPlayer2D.play()
 
 
+
+
+func _on_inv_1_pressed():
+	hook_sel = true
+	dagger_sel = false
+	dune_surf_sel = false
+
+func _on_inv_2_pressed():
+	hook_sel = false
+	dagger_sel = true
+	dune_surf_sel = false
+
+
+func _on_inv_3_pressed():
+	hook_sel = false
+	dagger_sel = false
+	dune_surf_sel = true
+	
+
+
+func _on_dagger_cooldown_timeout():
+	dag_ready = true
