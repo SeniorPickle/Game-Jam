@@ -150,7 +150,7 @@ stream_2/stream = ExtResource("6_32p4c")
 stream_2/weight = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lgmis"]
-size = Vector2(3510, 20)
+size = Vector2(4994, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dxpix"]
 size = Vector2(633, 32)
@@ -197,7 +197,7 @@ collision_layer = 16
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Death Boxes/StaticBody2D"]
-position = Vector2(2295, 384)
+position = Vector2(3037, 384)
 shape = SubResource("RectangleShape2D_lgmis")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="Death Boxes"]

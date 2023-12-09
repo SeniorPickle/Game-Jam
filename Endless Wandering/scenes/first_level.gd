@@ -10,6 +10,7 @@ func _ready():
 	seer.position = $SeerSpawn.position
 	add_child(seer)
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if not $AudioStreamPlayer2D.playing:

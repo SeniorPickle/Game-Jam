@@ -219,6 +219,12 @@ func hide_hook() -> void:
 
 func _on_death_colider_body_entered(body):
 	player_state = PlayerStates.DEFAULT
+	DeathMenu.get_node("CanvasLayer").show()
+
+func _respawn():
+	DeathMenu.get_node("CanvasLayer").hide()
+	show()
+	player_state = PlayerStates.DEFAULT
 	position.x = 320
 	position.y = 150
 	
@@ -229,6 +235,7 @@ func _on_death_colider_body_entered(body):
 
 
 func _on_tree_entered():
+	health = 100
 	
 	if get_tree() != null and get_tree().current_scene != null:
 		var current_scene_name = get_tree().current_scene.name

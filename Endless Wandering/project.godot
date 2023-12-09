@@ -22,6 +22,7 @@ CharacterLoader="*res://loaders/character_loader.tscn"
 PauseMenu="*res://loaders/pause_menu.tscn"
 LoadScreen="*res://load_screen.tscn"
 Options="*res://options.tscn"
+DeathMenu="*res://death_menu.tscn"
 
 [display]
 

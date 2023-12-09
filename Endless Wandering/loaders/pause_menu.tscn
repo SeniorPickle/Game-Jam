@@ -6,6 +6,7 @@
 script = ExtResource("1_0x8n6")
 
 [node name="layer_main" type="CanvasLayer" parent="."]
+layer = 10
 visible = false
 
 [node name="ColorRect" type="ColorRect" parent="layer_main"]

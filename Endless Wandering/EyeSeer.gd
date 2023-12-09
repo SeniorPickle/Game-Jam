@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 
-const SPEED = 2.0
+const SPEED = 1.5
 const JUMP_VELOCITY = -400.0
 var dir = 0
 var char_veloc = Vector2(0, 0)

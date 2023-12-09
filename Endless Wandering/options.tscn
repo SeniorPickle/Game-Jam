@@ -12,7 +12,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f2oqg"]
 
 [node name="Options" type="CanvasLayer"]
-layer = 5
+layer = 20
 visible = false
 script = ExtResource("1_ho3ue")
 
@@ -126,7 +126,7 @@ bus_name = "Master"
 layout_mode = 2
 max_value = 1.0
 step = 0.001
-value = 1.0
+value = 0.5
 script = ExtResource("2_runnd")
 bus_name = "Music"
 
