@@ -204,7 +204,7 @@ shape = SubResource("RectangleShape2D_wk0c5")
 visible = false
 points = PackedVector2Array(0, 0, 0, 0)
 width = 2.0
-default_color = Color(0, 0, 1, 1)
+default_color = Color(0.423529, 0.207843, 0.027451, 1)
 
 [node name="Hook" type="Area2D" parent="Player"]
 visible = false

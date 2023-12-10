@@ -39,8 +39,8 @@ func _ready():
 func _physics_process(delta):
 	$Camera2D/hud/ProgressBar.value = health
 	if health <= 0:
-		hide()
-		paused = true
+		player_state = PlayerStates.DEFAULT
+		DeathMenu.get_node("CanvasLayer").show()
 	print(player_state, hook_state)
 	
 	
@@ -106,7 +106,7 @@ func movement_logic(delta):
 		if Input.is_action_just_pressed("left"):
 			$AnimatedSprite2D.flip_h = true
 			dag_dir = -1
-		if Input.is_action_just_pressed("right"):
+		elif Input.is_action_just_pressed("right"):
 			$AnimatedSprite2D.flip_h = false
 			dag_dir = 1
 		if direction:

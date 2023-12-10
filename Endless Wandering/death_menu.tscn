@@ -46,7 +46,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
-text = "[center]Your wandering is not over yet, dont lose hope![/center]"
+text = "[center]Your wandering is not over yet. Whether you begin again or give in to defeat is entirely up to you.[/center]"
 fit_content = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
