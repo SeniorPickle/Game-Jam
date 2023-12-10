@@ -208,6 +208,8 @@ func retract_hook_logic(delta):
 			hide_hook()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_accept") and hook_state == HookStates.HOOKED and not paused and hook_sel:
+		hook_state = HookStates.RETRACT_TO_PLAYER
 	if event.is_action_pressed("ui_accept") and hook_state == HookStates.NONE and not paused and hook_sel:
 		hook.global_position = global_position
 		var target_dir = get_global_mouse_position() - $Hook.global_position

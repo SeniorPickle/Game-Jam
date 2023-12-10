@@ -3,7 +3,7 @@ extends StaticBody2D
 var SPEED = 5
 var knife_vec = Vector2(0,0)
 var dir = 0
-
+var enemy = ['EyeSeer']
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$existance.start()
@@ -16,7 +16,6 @@ func _ready():
 	
 func _physics_process(delta):
 	move_and_collide(knife_vec)
-	
 
 
 
@@ -25,12 +24,7 @@ func _physics_process(delta):
 
 
 func _on_area_2d_body_entered(body):
-	if body.name == 'sandworm':
-		body.health-=randi_range(5,15)
-		print(body.health)
-		queue_free()
-		$hit.play()
-	else:
+	if body.name in enemy:
 		queue_free()
 
 

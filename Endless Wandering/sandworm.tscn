@@ -1,9 +1,11 @@
-[gd_scene load_steps=33 format=3 uid="uid://c4wtifbksgiv2"]
+[gd_scene load_steps=35 format=3 uid="uid://c4wtifbksgiv2"]
 
 [ext_resource type="Script" path="res://sandworm.gd" id="1_t40mu"]
 [ext_resource type="Texture2D" uid="uid://dpqojii64ol7d" path="res://Assets/Sprites/enemies/sand_worm_move.png" id="2_5fkhg"]
 [ext_resource type="Texture2D" uid="uid://cfcj6siar4uy4" path="res://Assets/Sprites/enemies/attack.png" id="2_aspb1"]
 [ext_resource type="Texture2D" uid="uid://d00xhbme6uhky" path="res://Assets/Sprites/enemies/idle.png" id="3_3u05b"]
+[ext_resource type="AudioStream" uid="uid://kc1krdu4f34b" path="res://hitHurt.wav" id="5_efldv"]
+[ext_resource type="AudioStream" uid="uid://de0ghlrjqlnv7" path="res://sandwormDie.wav" id="6_oulno"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_asfum"]
 atlas = ExtResource("2_aspb1")
@@ -371,5 +373,23 @@ position = Vector2(19, -11)
 rotation = 5.23599
 shape = SubResource("SeparationRayShape2D_6e1dv")
 
+[node name="knife_hit" type="Area2D" parent="."]
+collision_layer = 65536
+collision_mask = 65536
+
+[node name="top2" type="CollisionPolygon2D" parent="knife_hit"]
+scale = Vector2(1.1, 1.1)
+polygon = PackedVector2Array(-15, 8, -9, -8, 1, -16, 17, -17, 26, -13, 27, -5, 26, 0, 17, -1, 10, -4, 8, 3, 8, 7, 9, 10, -15, 9)
+
+[node name="hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_efldv")
+bus = &"sfx"
+
+[node name="die" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_oulno")
+bus = &"sfx"
+
 [connection signal="body_entered" from="detect_floor" to="." method="_on_detect_floor_body_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="knife_hit" to="." method="_on_knife_hit_body_entered"]
+[connection signal="finished" from="die" to="." method="_on_die_finished"]
