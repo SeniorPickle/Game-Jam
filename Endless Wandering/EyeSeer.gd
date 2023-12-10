@@ -45,4 +45,6 @@ func _physics_process(delta):
 func _on_area_2d_body_entered(body):
 	if body == CharacterLoader.get_node("Player"):
 		CharacterLoader.get_node("Player").health -= 10
+		CharacterLoader.get_node("Player").position.x += CharacterLoader.get_node("Player")._dir*20
+		$hit.play()
 		position.x += 40*dir

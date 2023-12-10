@@ -17,3 +17,4 @@ func _process(delta):
 			$CanvasLayer/ProgressBar.value = 0
 			CharacterLoader.get_node("Player").paused = false
 			begin = false
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bmsaybwhiw00v"]
+[gd_scene load_steps=31 format=3 uid="uid://bmsaybwhiw00v"]
 
 [ext_resource type="Script" path="res://loaders/CharacterBody2D.gd" id="1_f5aau"]
 [ext_resource type="Texture2D" uid="uid://y0ueythsp15o" path="res://Assets/Sprites/Characters/character_main_anim.png" id="2_l7hmq"]
@@ -9,6 +9,9 @@
 [ext_resource type="StyleBox" uid="uid://tq6e8gy4hunb" path="res://new_style_box_flat.tres" id="7_plmfh"]
 [ext_resource type="Texture2D" uid="uid://dfmph2iy1xc7o" path="res://Assets/Sprites/char_tools/dagger.png" id="8_k8diy"]
 [ext_resource type="Texture2D" uid="uid://de73nsqskdq4q" path="res://Assets/Sprites/char_tools/grappling_hook.png" id="9_hlyvf"]
+[ext_resource type="AudioStream" uid="uid://c2qwehdja7uwp" path="res://death.wav" id="10_fmccc"]
+[ext_resource type="AudioStream" uid="uid://cm85k1b8xwodr" path="res://throw_hook.wav" id="11_ll45c"]
+[ext_resource type="AudioStream" uid="uid://ch03u5xaiprm8" path="res://hook_hit.wav" id="12_vk8kw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yodmo"]
 atlas = ExtResource("2_l7hmq")
@@ -223,6 +226,16 @@ disabled = true
 position = Vector2(2.5, -4.76837e-06)
 scale = Vector2(2.96875, 2.8125)
 texture = ExtResource("9_hlyvf")
+
+[node name="death" type="AudioStreamPlayer2D" parent="Player"]
+position = Vector2(-50, -150)
+stream = ExtResource("10_fmccc")
+
+[node name="throw_hook" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("11_ll45c")
+
+[node name="hook_hit" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("12_vk8kw")
 
 [node name="spawnpoint" type="Marker2D" parent="."]
 position = Vector2(50, 150)

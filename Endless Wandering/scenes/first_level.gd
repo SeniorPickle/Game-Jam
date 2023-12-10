@@ -18,7 +18,8 @@ func _process(delta):
 
 
 func _on_area_2d_body_entered(body):
-	pass # Replace with function body.
+	if body == CharacterLoader.get_node("Player"):
+		get_tree().change_scene_to_file("res://second_level.tscn")
 
 
 func _on_attack_timeout():

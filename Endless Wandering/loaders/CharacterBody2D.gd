@@ -3,6 +3,8 @@ extends CharacterBody2D
 enum PlayerStates {DEFAULT, HOOKED, SWUNG}
 enum HookStates {NONE, EXTEND, RETRACT_TO_PLAYER, HOOKED}
 
+var _dir:int = 0
+
 var LEVEL = 0
 
 var hook_sel:bool = true
@@ -33,14 +35,19 @@ var collision: bool = false
 @onready var line := $Line2D
 
 var jumps := 0
+
 func _ready():
 	pass
 
 func _physics_process(delta):
 	$Camera2D/hud/ProgressBar.value = health
 	if health <= 0:
+		$death.play()
 		player_state = PlayerStates.DEFAULT
+		hook_state = HookStates.NONE
 		DeathMenu.get_node("CanvasLayer").show()
+		get_tree().reload_current_scene()
+
 	print(player_state, hook_state)
 	
 	
@@ -105,9 +112,11 @@ func movement_logic(delta):
 	if not paused:
 		if Input.is_action_just_pressed("left"):
 			$AnimatedSprite2D.flip_h = true
+			_dir = 1
 			dag_dir = -1
 		elif Input.is_action_just_pressed("right"):
 			$AnimatedSprite2D.flip_h = false
+			_dir = -1
 			dag_dir = 1
 		if direction:
 			velocity.x = direction * SPEED
@@ -173,7 +182,7 @@ func swing_logic(delta):
 	
 
 func extend_hook_logic(delta):
-	
+	$throw_hook.play()
 	var new_hook_position = hook.global_position + hook_direction * HOOK_SPEED * delta
 	var distance_to_player = new_hook_position.distance_to(global_position)
 	hook.global_position += hook_direction * HOOK_SPEED * delta
@@ -226,6 +235,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_hook_body_entered(_body: Node2D) -> void:
 	var hook_distance = hook.position.distance_to(global_position)
 	if hook_distance <= HOOK_MAX_LENGTH:
+		$hook_hit.play()
 		player_state = PlayerStates.HOOKED
 		velocity = global_position.direction_to(hook.global_position) * PLAYER_HOOK_SPEED
 		hook_state = HookStates.HOOKED
@@ -240,19 +250,25 @@ func hide_hook() -> void:
 
 
 func _on_death_colider_body_entered(body):
+	$death.play()
 	player_state = PlayerStates.DEFAULT
 	DeathMenu.get_node("CanvasLayer").show()
 
 func _respawn():
+	var lvl = get_tree().current_scene.scene_file_path
+	print(lvl)
+	paused=true
+	print("Respawning")
 	DeathMenu.get_node("CanvasLayer").hide()
-	show()
-	player_state = PlayerStates.DEFAULT
+	get_tree().unload_current_scene()
+	get_tree().change_scene_to_file(lvl)
+	hide_hook()
 	position.x = 320
 	position.y = 150
-	
-	hide_hook()
 	$Camera2D.reset_smoothing()
-	
+	show()
+	print("Respawn complete")
+
 
 
 
@@ -262,9 +278,32 @@ func _on_tree_entered():
 	if get_tree() != null and get_tree().current_scene != null:
 		var current_scene_name = get_tree().current_scene.name
 		print("Current Scene: ", current_scene_name)
+		print(paused)
+		print('Player State: ', player_state,' Hook State: ', hook_state)
 		if current_scene_name != "MainMenu":
+			$Camera2D.enabled = false
 			paused = true
-		if current_scene_name == "first_level":
+		if current_scene_name == 'level_menu':
+			$Camera2D/hud.hide()
+			$Camera2D.enabled = false
+			hide()
+		elif current_scene_name == "first_level":
+			LoadScreen.begin = true
+			$Camera2D.enabled = true
+			paused=false
+			$Camera2D/hud.show()
+			$Camera2D.make_current()
+			position.y = 150
+			position.x = 320
+			LEVEL = 1
+			$Camera2D.reset_smoothing()
+			show()
+			print("Character Visible and moved to", position)
+			
+		elif current_scene_name == "second_level":
+			paused = true
+			LoadScreen.begin = true
+			$Camera2D.enabled = true
 			$Camera2D/hud.show()
 			$Camera2D.make_current()
 			position.y = 150

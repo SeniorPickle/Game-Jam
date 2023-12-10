@@ -28,6 +28,7 @@ func _on_area_2d_body_entered(body):
 	if body.name == 'sandworm':
 		body.health-=randi_range(5,10)
 		queue_free()
+		$hit.play()
 	else:
 		queue_free()
 

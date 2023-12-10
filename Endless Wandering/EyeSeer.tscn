@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://b7l4i678ih04v"]
+[gd_scene load_steps=29 format=3 uid="uid://b7l4i678ih04v"]
 
 [ext_resource type="Script" path="res://EyeSeer.gd" id="1_jhbr0"]
 [ext_resource type="Texture2D" uid="uid://cbbc23nww1hv2" path="res://Assets/Sprites/enemies/EyeSeer.png" id="2_5l16k"]
+[ext_resource type="AudioStream" uid="uid://dpuishcvcebdt" path="res://hitHurt (1).wav" id="3_xd3g8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dtduc"]
 atlas = ExtResource("2_5l16k")
@@ -307,5 +308,8 @@ shape = SubResource("RectangleShape2D_oov8c")
 shape = SubResource("RectangleShape2D_38vpb")
 
 [node name="back_off" type="Timer" parent="."]
+
+[node name="hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_xd3g8")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
