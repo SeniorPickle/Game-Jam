@@ -31,7 +31,7 @@ func _on_area_2d_body_entered(body):
 		
 func hit() -> void:
 	if $Area2D.overlaps_body(CharacterLoader.get_node("Player")):
-		CharacterLoader.get_node("Player").health -=10
+		CharacterLoader.get_node("Player").health -=50
 	
 func hit_end()->void:
 	direction=last_dir

@@ -326,8 +326,8 @@ func _on_tree_entered():
 
 func _on_step_sfx_timeout():
 	if (velocity.x < 0  or velocity.x > 0) and velocity.y==0 and get_tree().current_scene.name != 'MainMenu':
-		if $AudioStreamPlayer2D.playing == false:
-			$AudioStreamPlayer2D.play()
+		if $walk.playing == false:
+			$walk.play()
 
 
 

@@ -26,7 +26,8 @@ func _physics_process(delta):
 
 func _on_area_2d_body_entered(body):
 	if body.name == 'sandworm':
-		body.health-=randi_range(5,10)
+		body.health-=randi_range(5,15)
+		print(body.health)
 		queue_free()
 		$hit.play()
 	else:
