@@ -1,0 +1,20 @@
+[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://ctgse2jnoxd66"]
+
+[ext_resource type="Texture2D" uid="uid://4gbunyhwqf3t" path="res://Assets/Sprites/Environment/grapple_tex.tres" id="1_kvfvi"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_13o6c"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0j0t0"]
+texture = ExtResource("1_kvfvi")
+texture_region_size = Vector2i(32, 32)
+use_texture_padding = false
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -0.5, -11.375, 8, -8, 10.25, -0.25, 8, 8, -0.125, 10.375, -8, 8, -11.125, -0.75)
+
+[resource]
+physics_layer_0/collision_layer = 8
+physics_layer_0/collision_mask = 8
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_13o6c")
+sources/9 = SubResource("TileSetAtlasSource_0j0t0")
