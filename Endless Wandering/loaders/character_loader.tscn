@@ -151,6 +151,7 @@ value = 100.0
 show_percentage = false
 
 [node name="Health" type="RichTextLabel" parent="Player/Camera2D/hud/ProgressBar"]
+layout_mode = 0
 offset_left = 127.0
 offset_top = 2.0
 offset_right = 181.0
