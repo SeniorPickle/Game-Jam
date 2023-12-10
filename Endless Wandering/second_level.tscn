@@ -82,7 +82,7 @@ size = Vector2(4412, 20)
 [node name="second_level" type="Node2D"]
 script = ExtResource("1_8g23o")
 metadata/_edit_horizontal_guides_ = [149.0, 260.0]
-metadata/_edit_vertical_guides_ = [-8.0, 1415.0]
+metadata/_edit_vertical_guides_ = [-8.0, 1430.0]
 
 [node name="environment" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_rkito")

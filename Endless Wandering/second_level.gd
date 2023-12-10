@@ -5,7 +5,7 @@ var ENEMY = preload("res://EyeSeer.tscn")
 func _ready():
 	CharacterLoader.get_node("Player").emit_signal("tree_entered")
 	var newEnemy = ENEMY.instantiate()
-	newEnemy.position = Vector2(1415, 260)
+	newEnemy.position = Vector2(1430, 260)
 	add_child(newEnemy)
 	
 
