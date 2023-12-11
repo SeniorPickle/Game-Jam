@@ -330,6 +330,10 @@ func _on_tree_entered():
 			$Camera2D/hud.hide()
 			hide()
 			print("Character Hidden")
+		elif current_scene_name == "level_menu":
+			$Camera2D/hud.hide()
+			hide()
+			print("Character Hidden")
 		else:
 			$Camera2D/hud.hide()
 			show()

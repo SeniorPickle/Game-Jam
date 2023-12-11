@@ -35,9 +35,9 @@ bus = &"Music"
 
 [node name="Start_Game" type="Button" parent="Start_Layer"]
 offset_left = 520.0
-offset_top = 379.0
+offset_top = 332.0
 offset_right = 637.0
-offset_bottom = 415.0
+offset_bottom = 368.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -49,9 +49,9 @@ flat = true
 
 [node name="Options" type="Button" parent="Start_Layer"]
 offset_left = 520.0
-offset_top = 435.0
+offset_top = 384.0
 offset_right = 637.0
-offset_bottom = 471.0
+offset_bottom = 420.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -59,6 +59,19 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/focus = SubResource("StyleBoxEmpty_2og6t")
 text = "Options
 "
+flat = true
+
+[node name="LevelMenu" type="Button" parent="Start_Layer"]
+offset_left = 507.0
+offset_top = 435.0
+offset_right = 649.0
+offset_bottom = 471.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2og6t")
+text = "Level Selector"
 flat = true
 
 [node name="Achievments" type="Button" parent="Start_Layer"]
@@ -93,4 +106,5 @@ visible = false
 
 [connection signal="pressed" from="Start_Layer/Start_Game" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="Start_Layer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Start_Layer/LevelMenu" to="." method="_on_level_menu_pressed"]
 [connection signal="pressed" from="Start_Layer/exit" to="." method="_on_exit_pressed"]

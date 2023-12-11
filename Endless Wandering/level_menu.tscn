@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://cpcqv7mv4v3w5"]
+[gd_scene load_steps=2 format=3 uid="uid://cpcqv7mv4v3w5"]
+
+[ext_resource type="Script" path="res://level_menu.gd" id="1_ox3bn"]
 
 [node name="level_menu" type="Node2D"]
+script = ExtResource("1_ox3bn")
 metadata/_edit_vertical_guides_ = [1151.98]
 metadata/_edit_horizontal_guides_ = [648.039]
 
@@ -10,10 +13,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -12355.0
-offset_top = -7847.0
-offset_right = -11852.0
-offset_bottom = -7549.0
+offset_left = -12352.0
+offset_top = -7848.0
+offset_right = -11849.0
+offset_bottom = -7550.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(50, 50)
@@ -32,90 +35,32 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="lvl1" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1"
 
-[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="lvl2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "2"
 
-[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="lv3" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "3"
 
-[node name="Button4" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "4"
-
-[node name="Button5" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "5"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="back" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "6"
-
-[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "7"
-
-[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "8"
-
-[node name="Button4" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "9"
-
-[node name="Button5" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "10"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "11"
-
-[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "12"
-
-[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "13"
-
-[node name="Button4" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "14"
-
-[node name="Button5" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "15"
+text = "back"
 
 [node name="Camera2D" type="Camera2D" parent="MarginContainer"]
 top_level = true
 z_index = 20
 position = Vector2(580, 324)
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/lvl1" to="." method="_on_lvl_1_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/lvl2" to="." method="_on_lvl_2_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/lv3" to="." method="_on_lv_3_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/back" to="." method="_on_back_pressed"]
