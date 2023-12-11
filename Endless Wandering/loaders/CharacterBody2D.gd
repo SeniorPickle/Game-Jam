@@ -201,7 +201,7 @@ func extend_hook_logic(delta):
 
 
 func retract_hook_logic(delta):
-		hook.global_position += hook.global_position.direction_to(global_position) * HOOK_SPEED * delta
+		hook.global_position += hook.global_position.direction_to(global_position) * (HOOK_SPEED+300) * delta
 		if hook.global_position.distance_to(global_position) <= HOOK_SPEED * delta:
 			player_state = PlayerStates.DEFAULT
 			hook_state = HookStates.NONE
@@ -310,7 +310,19 @@ func _on_tree_entered():
 			$Camera2D.make_current()
 			position.y = 150
 			position.x = 320
-			LEVEL = 1
+			LEVEL = 2
+			$Camera2D.reset_smoothing()
+			show()
+			print("Character Visible and moved to", position)
+		elif current_scene_name == "level_3":
+			paused = true
+			LoadScreen.begin = true
+			$Camera2D.enabled = true
+			$Camera2D/hud.show()
+			$Camera2D.make_current()
+			position.y = 150
+			position.x = 320
+			LEVEL = 3
 			$Camera2D.reset_smoothing()
 			show()
 			print("Character Visible and moved to", position)
