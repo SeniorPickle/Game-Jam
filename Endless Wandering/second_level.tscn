@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://djhtx27j5sqfc"]
+[gd_scene load_steps=29 format=3 uid="uid://djhtx27j5sqfc"]
 
 [ext_resource type="Script" path="res://second_level.gd" id="1_8g23o"]
 [ext_resource type="Texture2D" uid="uid://cqu7p5sxv6bju" path="res://Assets/Sprites/Environment/eye_portal.png" id="2_a23nh"]
@@ -131,6 +131,9 @@ stream_2/weight = 1.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_opgel"]
 size = Vector2(9647, 20)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1fxp5"]
+size = Vector2(40, 452)
+
 [node name="second_level" type="Node2D"]
 script = ExtResource("1_8g23o")
 metadata/_edit_horizontal_guides_ = [86.0, 260.0, 105.0]
@@ -187,5 +190,12 @@ offset_bottom = 92.0
 bbcode_enabled = true
 text = "[center]Up ahead is an enemy you [b]can[/b] beat. After grappling over to the next piece of land, you can press 2 to pull out your dagger. you can press 1 to pull your hook out again"
 fit_content = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(317, 97)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-337, -139)
+shape = SubResource("RectangleShape2D_1fxp5")
 
 [connection signal="body_entered" from="StaticBody2D2/Area2D" to="." method="_on_area_2d_body_entered"]
